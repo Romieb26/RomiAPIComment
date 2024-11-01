@@ -4,12 +4,9 @@ import cors from 'cors'; // Importar cors
 import * as dotenv from 'dotenv';
 
 // Importar rutas de módulos
-import clientRoutes from './client/routes/clientRoutes';
-import coffeeRoutes from './coffee/routes/coffeeRoutes';
 import userRoutes from './user/routes/userRoutes';
-import orderRoutes from './order/routes/orderRoutes';
 import rolRoutes from './rol_user/routes/rol_userRoutes';
-import orderCoffeeRoutes from './orderCoffee/routes/OrderCoffeeRoutes';
+import diccionaryRoutes from './diccionary/routes/diccionaryRoutes';
 
 // Importar middlewares compartidos
 import { errorHandler } from './shared/middlewares/errorHandler';
@@ -30,12 +27,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 // Rutas de los módulos
-app.use('/api/client', clientRoutes);
-app.use('/api/coffee', coffeeRoutes);
 app.use('/api/user', userRoutes);
-app.use('/api/order', orderRoutes);
 app.use('/api/rol', rolRoutes);
-app.use('/api/order_coffee', orderCoffeeRoutes);
+app.use('/api/diccionario', diccionaryRoutes)
 
 // Middleware para manejar rutas no encontradas
 app.use(notFoundHandler);
