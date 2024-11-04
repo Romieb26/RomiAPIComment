@@ -4,9 +4,8 @@ import cors from 'cors'; // Importar cors
 import * as dotenv from 'dotenv';
 
 // Importar rutas de módulos
-import userRoutes from './user/routes/userRoutes';
-import rolRoutes from './rol_user/routes/rol_userRoutes';
 import diccionaryRoutes from './diccionary/routes/diccionaryRoutes';
+import commentRoutes from './clima/routes/commentRoutes';
 
 // Importar middlewares compartidos
 import { errorHandler } from './shared/middlewares/errorHandler';
@@ -27,9 +26,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 // Rutas de los módulos
-app.use('/api/user', userRoutes);
-app.use('/api/rol', rolRoutes);
 app.use('/api/diccionario', diccionaryRoutes)
+app.use('/api/comentario', commentRoutes
+  
+)
 
 // Middleware para manejar rutas no encontradas
 app.use(notFoundHandler);
