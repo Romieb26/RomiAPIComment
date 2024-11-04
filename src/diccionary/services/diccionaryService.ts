@@ -21,4 +21,9 @@ export class DiccionaryService {
     public static async deleteWord(word_id: number): Promise<boolean> {
         return await DiccionaryRepository.deleteWord(word_id);
     }
+
+    public static async getWordsByInitialLetter(letter: string): Promise<Diccionary[]> {
+        return await DiccionaryRepository.findByInitialLetter(letter);
+    }
+    
 }

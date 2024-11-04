@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getWords, searchWord, createWord, updateWord, deleteWord } from '../controllers/diccionaryControllers';
+import { getWords, searchWord, createWord, updateWord, deleteWord, getWordsByInitialLetter } from '../controllers/diccionaryControllers';
 
 const diccionaryRoutes: Router = Router();
 
@@ -8,5 +8,6 @@ diccionaryRoutes.get('/search/:searchTerm', searchWord); // Endpoint de búsqued
 diccionaryRoutes.post('/', createWord);
 diccionaryRoutes.put('/:word_id', updateWord);
 diccionaryRoutes.delete('/:word_id', deleteWord);
+diccionaryRoutes.get('/filter/:letter', getWordsByInitialLetter);
 
 export default diccionaryRoutes;

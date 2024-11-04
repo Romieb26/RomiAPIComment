@@ -85,4 +85,25 @@ export class DiccionaryRepository {
             });
         });
     }
+
+
+    
+    public static async findByInitialLetter(letter: string): Promise<Diccionary[]> {
+        return new Promise((resolve, reject) => {
+            connection.query(
+                'SELECT word_id, word, definition, created_at, updated_at, deleted FROM words WHERE word LIKE ? AND deleted = 0',
+                [`${letter}%`], // Filtra palabras que inician con la letra
+                (error, results) => {
+                    if (error) {
+                        console.error("Error fetching words by initial letter:", error);
+                        reject(error);
+                    } else {
+                        resolve(results as Diccionary[]);
+                    }
+                }
+            );
+        });
+    }
+    
+
 }

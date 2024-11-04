@@ -45,4 +45,17 @@ export const deleteWord = async (req: Request, res: Response) => {
     } catch (error: any) {
         res.status(500).json({ error: error.message });
     }
+
+    
+
+};
+
+export const getWordsByInitialLetter = async (req: Request, res: Response) => {
+    try {
+        const letter = req.params.letter;
+        const words = await DiccionaryService.getWordsByInitialLetter(letter);
+        res.status(200).json(words);
+    } catch (error: any) {
+        res.status(500).json({ error: error.message });
+    }
 };
