@@ -19,11 +19,12 @@ export class DiccionaryRepository {
         });
     }
 
+    // Busca la palabra con coincidencia exacta
     public static async findByWordOrInitial(searchTerm: string): Promise<Diccionary[]> {
         return new Promise((resolve, reject) => {
             connection.query(
-                'SELECT word_id, word, definition, created_at, updated_at, deleted FROM words WHERE word LIKE ? AND deleted = 0',
-                [`${searchTerm}%`],
+                'SELECT word_id, word, definition, created_at, updated_at, deleted FROM words WHERE word = ? AND deleted = 0',
+                [searchTerm], // Usa coincidencia exacta
                 (error, results) => {
                     if (error) {
                         console.error("Error fetching word:", error);
@@ -38,8 +39,15 @@ export class DiccionaryRepository {
 
     public static async createWord(diccionary: Diccionary): Promise<Diccionary> {
         const query = 'INSERT INTO words (word, definition, created_at, updated_at, deleted) VALUES (?, ?, NOW(), NOW(), 0)';
+        const { word, definition } = diccionary;
+    
+        // Validación previa para evitar valores undefined
+        if (!word || !definition) {
+            throw new Error("Both 'word' and 'definition' fields are required and must be defined.");
+        }
+    
         return new Promise((resolve, reject) => {
-            connection.execute(query, [diccionary.word, diccionary.definition], (error, result: ResultSetHeader) => {
+            connection.execute(query, [word, definition], (error, result: ResultSetHeader) => {
                 if (error) {
                     console.error("Error inserting word:", error);
                     reject(error);
@@ -49,7 +57,7 @@ export class DiccionaryRepository {
             });
         });
     }
-
+    
     public static async updateWord(word_id: number, wordData: Partial<Diccionary>): Promise<boolean> {
         const query = 'UPDATE words SET word = ?, definition = ?, updated_at = NOW() WHERE word_id = ? AND deleted = 0';
         return new Promise((resolve, reject) => {

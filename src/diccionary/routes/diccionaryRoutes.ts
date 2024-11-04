@@ -4,7 +4,7 @@ import { getWords, searchWord, createWord, updateWord, deleteWord } from '../con
 const diccionaryRoutes: Router = Router();
 
 diccionaryRoutes.get('/', getWords);
-diccionaryRoutes.get('/search/:searchTerm', searchWord);
+diccionaryRoutes.get('/search/:searchTerm', searchWord); // Endpoint de búsqueda exacta
 diccionaryRoutes.post('/', createWord);
 diccionaryRoutes.put('/:word_id', updateWord);
 diccionaryRoutes.delete('/:word_id', deleteWord);
